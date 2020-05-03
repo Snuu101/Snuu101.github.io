@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wasserlebende Säugetiere | Kapitel</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+
+        <link rel="shortcut icon" href="/icons/index.ico" type="image/x-icon">
+
+        <link rel="stylesheet" href="style.css">
+
+        <script src="js/jquery-3.5.0.min.js"></script>
+        <script src="js/script.js"></script>
+    </head>
+
+    <body>
+
+        <div class="bc_panel">
+            <div class="bc_container">
+               <div class="bc_home icon-home" title="Startseite" onclick="location.href='/index.html';"></div>
+               <div class="bc_divider"></div>   
+               <div class="bc_item" onclick="location.href='/index.html';">5. Biologie </div>
+               <div class="bc_divider"></div>
+               <div class="bc_item" onclick="location.href='/index.html';">1. Klasse </div>
+               <div class="bc_divider"></div>  
+               <div class="bc_item" onclick="location.href='/index.html';">4. Wasserlebende Säugetiere</div>
+               <div class="bc_divider"></div>   
+               <div class="bc_item bc_item_a">1. Meeressäuger</div>
+            </div>
+        </div>
+
+        <div class="page_small">
+            <!-- Text -->
+            <div class="page_block block_1"> <!-- Block start -->
+                <div class="page_title">Meeressäuger</div> <!-- Page title, green (page_subtitle also aviable) -->
+                Nicht alle Säugetiere leben am Land, einige leben auch im Wasser.
+            </div> <!-- Block end -->
+            <div class="page_block block_2">Diese sogenannten <strong>Meeressäuger</strong> - also Wale und Delfine - sehen zwar den Fischen sehr ähnlich, gehören aber zur Gruppe der Säugetiere.</div> 
+            <div class="page_block block_3">Deshalb sind sie näher mit den Paarhufern verwandt als mit den Fischen.</div>         
+        </div>
+
+        <div class="footer_navi">
+            <div id="prev_page" class="footer_navi_item" onclick="location.href = '/index.html';">
+               <div class="footer_navi_arrow left icon-arrow-left"></div>
+               <div class="footer_navi_text left">Vorige Seite: <span>Wasserlebende Säugetiere</span></div>
+               <div class="clear"></div>
+            </div>
+   
+            <div class="footer_navi_reload" id="page_block_all">
+                <div class="footer_navi_reload_button icon-angle-double-down" title="Alles anzeigen"></div>
+            </div>
+            <div class="footer_navi_reload">
+                <div class="footer_navi_reload_button icon-refresh" title="Thema neu starten" onclick="location.reload(true);"></div>
+            </div>
+   
+            <div id="next_page" class="footer_navi_item" onclick="location.href = '2_merkmale.html';">
+               <div class="footer_navi_arrow right icon-arrow-right"></div>
+               <div class="footer_navi_text right">Nächste Seite: <span>Die Merkmale der Meeressäuger</span></div>
+               <div class="clear"></div>
+            </div>
+         </div>
+
+         <div id="page_block_next" class="page_block_next icon-caret-down-two" style="top: 172px; left: 80px"></div>
+    </body>
+</html>
