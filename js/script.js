@@ -1,5 +1,8 @@
 var current_block = 0;
 var max_blocks = 0;
+var images = [];
+var img = 0;
+
 
 $(document).ready(function(){
 
@@ -23,7 +26,20 @@ $(document).ready(function(){
         show_block(current_block + 1);
         setTimeout(fade_next, 1500);
    }
+
+   // ---------- open and close modal dialog
+   $(".image_column").click(function(){
+      img = $(this).attr("id");               
+      $("#modal_" + img).css("display", "block");
+   });
+
+   $(window).click(function(e) {                
+      if (e.target.className == "game_modal") {                   
+         $("#modal_" + img).css("display", "none");
+      }    
+   });
 });
+
 
 // ----------- show_block ----------
 function show_block(block) {
@@ -122,18 +138,9 @@ function show_all() {
        current_block = max_blocks;
     }
 
-/* function dropdown(e) {
-    e.stopPropagation();
-
-    var toggle = $(this).hasClass("topic_header") ? $(this).find(".topic_toggle") : $(this);
-    var box = toggle.parent().parent().find(".topic_pages");
-
-    if (box.is(":visible")) {
-        toggle.removeClass("icon-menu-close").addClass("icon-menu-open").attr("title", "aufklappen");
-        box.hide("blind");
-
-    } else {
-        toggle.removeClass("icon-menu-open").addClass("icon-menu-close").attr("title", "einklappen");
-        box.show("blind");
-    }
-} */
+    function show_image(nr) {
+      var image = images[nr - 1];
+   
+      $(image.image_id).attr("src", image.image_name).data("pic_nr", nr - 1).off().on("click", show_image);
+      setTimeout(function() { $(".content_pic_zoom").css({ top: $(pic.pic_id).offset().top, left: $(pic.pic_id).offset().left }).show(); }, 100);
+   }
