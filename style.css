@@ -201,8 +201,22 @@ body {
 }
 
 .layout_picture {
-    cursor: pointer;
     width: 350px;
+    border-radius: 7px;
+}
+
+.layout_picture_sound {
+    display: none;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+    line-height: 42px;
+    cursor: pointer;
+    color: #666666;
+    background-color: #ffffff;
+    border-radius: 0 50px 50px 0px;
+    opacity: 0.7;
 }
 
 .mt10 {
@@ -239,7 +253,46 @@ body {
 
 /* ---------- Game -----------*/
 .game_container {
+    width: 100%;
+    padding: 10px;
+}
 
+.game_droppable {
+    margin: auto;
+    float: left;
+    border-radius: 7px;
+    width: 500px;
+    height: 250px;
+    background: rgb(2,0,36);
+    background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 50%, rgba(0,212,255,1) 100%);
+}
+
+.highlight {
+    background: rgb(2,0,36);
+    background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 0%, rgba(0,212,255,1) 100%);
+}
+
+.ui-draggable-dragging { 
+    box-shadow: 3px 5px 7px #666; 
+}
+
+.image_whale {
+    display: none;
+    width: inherit;
+    height: inherit;
+    background-image: url("/images/gameWhale.png");
+    background-size: 375px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.baby {
+    margin-bottom: 20px;
+    width: 300px;
+    height: 230px;
+    float: right;
+    background-size: 175px;
+    background-position: bottom, right;
 }
 
 .image_table {
@@ -247,38 +300,115 @@ body {
     width: 100%;
 }
 
-.image_column {
-    float: left;
-    width: 100px;
-    padding: 10px;
+.image_row {
+    margin: auto;
+    height: 120px;
+    width: max-content;
 }
 
-.image_column img {
+.image_destination_left_true {
+    margin-left: 140px;
+    height: 250px;
+    width: 120px;
+    float: left;
+}
+
+.image_destination_right_true {
+    height: 250px;
+    width: 120px;
+    float: left;
+}
+
+.droppable_row {
+    margin: auto;
+    height: 120px;
+}
+
+#image_destination {
+    margin: auto;
+}
+
+.image_cell {
+    display: inline-block;
+    border-radius: 7px;
+    background-color: #def3f6;
+    background-size: 100px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    margin-right: 2px;
+}
+
+.image_true {
+    opacity: 0%;
+    border-radius: 7px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #229922;
+    background-color: #def3f6;
+    background-size: 100px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+.image_false {
+    display: inline-block;
+    opacity: 0%;
+    border-radius: 7px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #ff6666;
+    background-color: #def3f6;
+    background-size: 100px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    margin-right: 2px;
+    margin-top: 5px;
+}
+
+.image_cell img {
     border-radius: 7px;
     width: 100px;
     cursor: pointer;
 }
 
+.top {
+    display: inline-block;
+    margin-right: 2px;
+}
+
 .game_modal {
-    display: none; 
+    display: none;
     position: fixed;
-    z-index: 1;    
+    z-index: 99;    
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;  
     padding: 20px;
-    background-color: rgba(0,0,0,0.4);
-    /*filter: blur(5px) opacity(50%);*/
+    background-color: rgba(255,255,255,0.9);
+    cursor: pointer;
 }
+
 .game_modal_content {    
     padding: 20px;
     border-radius: 7px;
-    margin-top: 300px;
-    margin-left: 445px;
+    margin: auto;
+
     width: 400px;
     height: 250px;
-    background-color: #f7f6f5;    
+    cursor: default;
+    background-color: #f7f6f5;
+    box-shadow: 0px 0px 7px #666;   
 }
 
 .game_modal_head {
@@ -291,6 +421,29 @@ body {
 .false {
     color: #ff6666
 }
+
+.button_close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+    line-height: 35px;
+    color: #fff;
+    text-align: center;
+    background-color: #333;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    box-shadow: 2px 2px 5px #333;
+    cursor: pointer;
+    z-index: 2;
+}
+
+    .button_close:hover {
+        background-color: #ff9646;
+    }
+
 
 /* ---------- Index page ---------- */
 .topic_top {

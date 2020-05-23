@@ -1,10 +1,13 @@
 var current_block = 0;
 var max_blocks = 0;
 var images = [];
-var img = 0;
+var audio= [];
+var game_images = [];
+var img_id = 0;
 
+var audio_context = new (window.AudioContext || window.webkitAudioContext)();
 
-$(document).ready(function(){
+$(document).ready(function() {
 
     $(".page_block").each(function() {
         var classes = $(this).attr("class");
@@ -26,20 +29,7 @@ $(document).ready(function(){
         show_block(current_block + 1);
         setTimeout(fade_next, 1500);
    }
-
-   // ---------- open and close modal dialog
-   $(".image_column").click(function(){
-      img = $(this).attr("id");               
-      $("#modal_" + img).css("display", "block");
-   });
-
-   $(window).click(function(e) {                
-      if (e.target.className == "game_modal") {                   
-         $("#modal_" + img).css("display", "none");
-      }    
-   });
 });
-
 
 // ----------- show_block ----------
 function show_block(block) {
@@ -138,9 +128,52 @@ function show_all() {
        current_block = max_blocks;
     }
 
+    // --------- show_image - reveal images -------
     function show_image(nr) {
       var image = images[nr - 1];
-   
-      $(image.image_id).attr("src", image.image_name).data("pic_nr", nr - 1).off().on("click", show_image);
-      setTimeout(function() { $(".content_pic_zoom").css({ top: $(pic.pic_id).offset().top, left: $(pic.pic_id).offset().left }).show(); }, 100);
+      $(image.image_id).attr("src", image.image_name);
+      $("#sound_button_" + nr).css({top: $(image.image_id).offset().top, left: $(image.image_id).offset().left}).show();
+      //var offset = $(image.image_id).offset();
+      //alert(offset.top + ", " + offset.left);
    }
+   
+
+   // --------- play audio ---------
+   function preload_sounds(urls) {
+      for (var s = 0; s < urls.length; s++) {
+         preload_sound(urls[s][1], urls[s][0]);
+      }
+   }
+
+   function preload_sound(url, tag) {
+      fetch(url).then(
+         response => response.arrayBuffer()
+      ).then(
+         buffer => audio_context.decodeAudioData(buffer).then(
+            data => audio[tag] = data
+         )
+      );
+   }
+
+   function play_soundbuffer(buffer) {
+      var audio_source    = audio_context.createBufferSource();
+      audio_source.buffer = audio[buffer];
+      audio_source.connect(audio_context.destination);
+      audio_source.start(0);
+   }
+
+   // --------- center element funktion ---------
+   jQuery.fn.center = function(parent) {
+      if (parent) {
+          parent = this.parent();
+      } else {
+          parent = window;
+      }
+      this.css({
+          "position": "absolute",
+          "top": ((($(parent).height() - this.outerHeight()) / 2) + "px"),
+          "left": ((($(parent).width() - this.outerWidth()) / 2) + "px")
+      });
+   return this;
+   }
+

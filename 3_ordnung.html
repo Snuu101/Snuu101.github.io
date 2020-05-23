@@ -31,7 +31,7 @@
             
             <div class="page_block block_1">
                 <div class="page_title">Die Ordnung der Wale</div>
-                Wale sind eine Ordnung der Säugetiere. Sie werden unterteilt in die beiden Ordnungen der Brtwale und der Zahnwale.
+                Wale sind eine Ordnung der Säugetiere. Sie werden unterteilt in die beiden Ordnungen der Bartwale und der Zahnwale.
             </div>
             <div class="layout_table">
                 <div class="layout_table_text">
@@ -44,7 +44,7 @@
                     <div class="page_block block_5" data-reveal_function="show_image(1)">Ein anderer Vertreter dieser Art ist zum Beispiel der Buckelwal, der für seinen besonderen Gesang bekannt ist.</div>
                 </div>
                 <div class="layout_table_picture">
-                    <img id="image" class="layout_picture mt10" src="">
+                    <img id="image_1" class="layout_picture" src="">
                 </div>
             </div>
             <div class="layout_table">
@@ -58,16 +58,21 @@
                     <div class="page_block block_9" data-reveal_function="show_image(2)">Dieses nutzen sie unter anderem zur Jagd und um miteinander zu kommunizieren.</div>
                 </div>
                 <div class="layout_table_picture">
-                    <img id="image" class="layout_picture" src="">
+                    <img id="image_2" class="layout_picture" src="">
                 </div>
             </div>      
-        </div>
+        </div> 
 
-        <script type="text/javascript">
+        <div id="sound_button_1" class="layout_picture_sound icon-refresh" title="Walgesang abspielen" onclick="play_soundbuffer('buckelwal')"></div>
+        <div id="sound_button_2" class="layout_picture_sound icon-refresh" title="Walgesang abspielen" onclick="play_soundbuffer('schwertwal')"></div>
+
+        <script>
             images = [
-                { image_id: "#image", image_name: "/images/buckel.jpg" },
-                { image_id: "#image", image_name: "/images/orca.png" },
+                { image_id: "#image_1", image_name: "/images/buckel.jpg" },
+                { image_id: "#image_2", image_name: "/images/orca.png" },
             ];
+
+            preload_sounds([["buckelwal", "/audio/buckelwal.ogg"], ["schwertwal", "/audio/schwertwal.ogg"]]);            
         </script>
 
         <div class="footer_navi">
