@@ -63,14 +63,40 @@
             </div>      
         </div> 
 
-        <div id="sound_button_1" class="layout_picture_sound icon-refresh" title="Walgesang abspielen" onclick="play_soundbuffer('buckelwal')"></div>
-        <div id="sound_button_2" class="layout_picture_sound icon-refresh" title="Walgesang abspielen" onclick="play_soundbuffer('schwertwal')"></div>
+        <div id="sound_button_1" class="layout_picture_sound icon-refresh" title="Walgesang abspielen" onclick="play_audio('buckelwal')"></div>
+        <div id="sound_button_2" class="layout_picture_sound icon-refresh" title="Walgesang abspielen" onclick="play_audio('schwertwal')"></div>
+
+        <audio id="buckelwal">
+            <source src= /audio/buckelwal.ogg>
+        </audio>
+        <audio id="schwertwal">
+            <source src= /audio/schwertwal.ogg>
+        </audio>
 
         <script>
             images = [
                 { image_id: "#image_1", image_name: "/images/buckel.jpg" },
                 { image_id: "#image_2", image_name: "/images/orca.png" },
             ];
+
+            // ---------- play audio files ----------
+            // pause active audio bevore playing new audio
+            jQuery(document).ready(function( $ ) {
+                $('audio').on("play", function (me) {
+                    $('audio').each(function (i,e) {
+                    if (e !== me.currentTarget) {
+                        this.pause(); 
+                        }
+                    });
+                });
+            })
+
+            // play audio
+            function play_audio(id) {
+                var audio = document.getElementById(id);
+                if (!audio.paused) {audio.pause()}
+                audio.play();
+            }
 
             preload_sounds([["buckelwal", "/audio/buckelwal.ogg"], ["schwertwal", "/audio/schwertwal.ogg"]]);            
         </script>

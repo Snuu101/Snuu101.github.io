@@ -156,10 +156,12 @@ function show_all() {
    }
 
    function play_soundbuffer(buffer) {
+      //audio_context.pause(0);
       var audio_source    = audio_context.createBufferSource();
       audio_source.buffer = audio[buffer];
       audio_source.connect(audio_context.destination);
       audio_source.start(0);
+      console.log(audio_source);
    }
 
    // --------- center element funktion ---------

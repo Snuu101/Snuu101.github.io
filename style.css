@@ -273,7 +273,7 @@ body {
 }
 
 .ui-draggable-dragging { 
-    box-shadow: 3px 5px 7px #666; 
+    box-shadow: 2px 2px 5px #999; 
 }
 
 .image_whale {
@@ -295,6 +295,13 @@ body {
     background-position: bottom, right;
 }
 
+.arrows {
+    display: none;
+    width: 500px;
+    height: 250px;
+    background-image: url("/images/arrows.png");
+}
+
 .image_table {
     display: table;
     width: 100%;
@@ -302,7 +309,8 @@ body {
 
 .image_row {
     margin: auto;
-    height: 120px;
+    height: 10
+    0px;
     width: max-content;
 }
 
@@ -317,6 +325,12 @@ body {
     height: 250px;
     width: 120px;
     float: left;
+}
+
+.left_right {
+    margin-top: 75px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .droppable_row {
@@ -354,7 +368,6 @@ body {
     overflow: hidden;
     width: 100px;
     height: 100px;
-    margin: auto;
 }
 
 .image_false {
@@ -383,7 +396,14 @@ body {
 
 .top {
     display: inline-block;
-    margin-right: 2px;
+}
+
+#image_true_1 {
+    margin-right: 80px;
+}
+
+#image_true_3 {
+    margin-right: 80px;
 }
 
 .game_modal {

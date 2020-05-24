@@ -16,14 +16,14 @@
     <body>
         <div class="button_close" onclick="history.back(-1)">x</div>
         <div class="game_canvas">
-            <div>Welche Merkmale würdest du den Meeressäugern zuordnen?</div>
+            <div>Welche Merkmale würdest du den Meeressäugern zuordnen? Note: We are working on hand drawn images.</div>
          
-                <div id="image_source" class="image_row"></div>
+                <div id="image_source" class="image_row mt10"></div>
                 <div id="image_destination_top_true" class="image_row"></div>                
                     <div style="margin: auto;">
                         <div class="image_destination_left_true"></div>
                         <div class="game_droppable">
-                            <div class="image_whale"><div class="image_whale baby"></div></div>                            
+                            <div class="image_whale"><div class="arrows"><div class="image_whale baby"></div></div></div>                            
                         </div>
                         <div class="image_destination_right_true"></div>
                     </div>             
@@ -34,12 +34,12 @@
             game_images = [
                 { image_id: "1", image_src: "/images/blasloch.png", characteristic: "Blasloch", correct: "true" },
                 { image_id: "2", image_src: "/images/fischeier.jpg", characteristic: "Fischeier", correct: "false" },
-                { image_id: "3", image_src: "/images/flosse_horizontal.png", characteristic: "Fluke", correct: "true" },
+                { image_id: "3", image_src: "/images/blubber.jpg", characteristic: "Blubber", correct: "true" },
                 { image_id: "4", image_src: "/images/flosse_vertikal.png", characteristic: "Fischflosse", correct: "false" },
                 { image_id: "5", image_src: "/images/kiemen.jpg", characteristic: "Kiemen", correct: "false" },
                 { image_id: "6", image_src: "/images/lunge.svg", characteristic: "Lunge", correct: "true" },
                 { image_id: "7", image_src: "/images/schuppe.JPG", characteristic: "Schuppe", correct: "false" },
-                { image_id: "8", image_src: "/images/blubber.jpg", characteristic: "Blubber", correct: "true" },
+                { image_id: "8", image_src: "/images/flosse_horizontal.png", characteristic: "Fluke", correct: "true" },
                 { image_id: "9", image_src: "/images/blubber.jpg", characteristic: "Brutpflege", correct: "true" },
                 { image_id: "10", image_src: "/images/blasloch.png", characteristic: "Fell ", correct: "false" },
             ];
@@ -58,18 +58,18 @@ $(document).ready(function() {
         addDraggable(setID)
 
         if (image.image_id == 6) {
-            $(".image_destination_left_true").append('<div id="#image_true_' + image.image_id + '" class="image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+            $(".image_destination_left_true").append('<div id="#image_true_' + image.image_id + '" class="image_true left_right" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
         }
         if (image.image_id == 9) {
-            $(".image_destination_right_true").append('<div id="#image_true_' + image.image_id + '" class="image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+            $(".image_destination_right_true").append('<div id="#image_true_' + image.image_id + '" class="image_true left_right" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
         }
         if (image.image_id == 1) {
-            $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true top" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
-        }
-        if (image.image_id == 8) {
-            $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true top" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+            $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true top" style="background-image: url(' + image.image_src + '); margin-right: 85px;"  onclick="showModal(' + image.image_id + ')"></div>');
         }
         if (image.image_id == 3) {
+            $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true top" style="background-image: url(' + image.image_src + '); margin-right: 85px;"  onclick="showModal(' + image.image_id + ')"></div>');
+        }
+        if (image.image_id == 8) {
             $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true top" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
         }
     }   
@@ -107,6 +107,7 @@ $(window).click(function(e) {
 function addDraggable(setID) {
     $(setID).draggable({
         revert: "invalid",
+        containment: "window",
         scroll: false, 
         stack: ".image_cell",
         start: function() {
@@ -114,10 +115,7 @@ function addDraggable(setID) {
             var regex   = /image_(\d+)/;
             image       = game_images[parseInt(regex.exec(id)[1]) - 1];
             console.log(image.image_id);
-        },
-        drag: function(event, ui) {
-            
-        }                                                                     
+        },                                                                  
     });
 }
 
@@ -148,6 +146,7 @@ function moveElement(moveAll) {
             }  else {
             animation(image.image_id);
             setTimeout(function(){ jQuery(".image_whale").fadeIn(3500, "swing") }, 1500);
+            setTimeout(function(){ jQuery(".arrows").fadeIn(3500, "swing") }, 5000);
             }          
         } 
     } else {
