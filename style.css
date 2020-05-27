@@ -315,7 +315,7 @@ body {
 }
 
 .image_destination_left_true {
-    margin-left: 140px;
+    margin-left: 170px;
     height: 250px;
     width: 120px;
     float: left;
@@ -342,10 +342,22 @@ body {
     margin: auto;
 }
 
+.image_label {
+    background-color:rgba(211,211,211, 0.4);
+    color: #333333;
+    font-size: 18px;
+    line-height: 25px;
+    width: 100px;
+    height: 27px;
+    margin-top: 73px;
+    bottom: 0px;
+    text-align: center;
+}
+
 .image_cell {
     display: inline-block;
     border-radius: 7px;
-    background-color: #def3f6;
+    background-color: #fff;
     background-size: 100px;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -358,10 +370,7 @@ body {
 .image_true {
     opacity: 0%;
     border-radius: 7px;
-    border-style: solid;
-    border-width: 5px;
-    border-color: #229922;
-    background-color: #def3f6;
+    background-color: #fff;
     background-size: 100px;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -377,7 +386,7 @@ body {
     border-style: solid;
     border-width: 5px;
     border-color: #ff6666;
-    background-color: #def3f6;
+    background-color: #fff;
     background-size: 100px;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -386,6 +395,12 @@ body {
     height: 100px;
     margin-right: 2px;
     margin-top: 5px;
+}
+
+.border_true {
+    border-style: solid;
+    border-width: 5px;
+    border-color: #229922;
 }
 
 .image_cell img {
@@ -435,7 +450,6 @@ body {
     font-size: 20px !important;
     line-height: 24px !important;
     margin-bottom: 20px;
-    color: #229922;
 }
 
 .false {
