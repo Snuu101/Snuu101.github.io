@@ -257,16 +257,6 @@ body {
     padding: 10px;
 }
 
-.game_droppable {
-    margin: auto;
-    float: left;
-    border-radius: 7px;
-    width: 500px;
-    height: 250px;
-    background: rgb(2,0,36);
-    background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 50%, rgba(0,212,255,1) 100%);
-}
-
 .highlight {
     background: rgb(2,0,36);
     background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 0%, rgba(0,212,255,1) 100%);
@@ -367,18 +357,6 @@ body {
     margin-right: 2px;
 }
 
-.image_true {
-    opacity: 0%;
-    border-radius: 7px;
-    background-color: #fff;
-    background-size: 100px;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-}
-
 .image_false {
     display: inline-block;
     opacity: 0%;
@@ -421,35 +399,8 @@ body {
     margin-right: 80px;
 }
 
-.game_modal {
-    display: none;
-    position: fixed;
-    z-index: 99;    
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;  
-    padding: 20px;
-    background-color: rgba(255,255,255,0.9);
-    cursor: pointer;
-}
-
-.game_modal_content {    
-    padding: 20px;
-    border-radius: 7px;
-    margin: auto;
-
-    width: 400px;
-    height: 250px;
-    cursor: default;
-    background-color: #f7f6f5;
-    box-shadow: 0px 0px 7px #666;   
-}
-
-.game_modal_head {
-    font-size: 20px !important;
-    line-height: 24px !important;
-    margin-bottom: 20px;
+.true {
+    color: #229922;
 }
 
 .false {

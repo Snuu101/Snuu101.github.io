@@ -9,7 +9,60 @@
 
         <style>
             body { margin: 0px; background: #7acd7a url("/images/bio_bg.png"); outline: 0px none; -webkit-appearance: none; -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-            .game_canvas { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; margin: auto; padding: 14px 7px; width: 1075px; height: 650px; background-color: #f7f6f5; border: 1px solid #999; border-radius: 15px; box-shadow: 2px 2px 5px #999; }
+            .game_canvas { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; margin: auto; padding: 14px 7px; width: 1180px; height: 700px; background-color: #f7f6f5; border: 1px solid #999; border-radius: 15px; box-shadow: 2px 2px 5px #999; }
+            
+            .game_modal {
+                width: 325px;
+                height: 323px;
+                float: left;
+            }
+
+            .game_modal_content {
+                display: none;
+                padding: 0px 20px;
+                margin: auto;
+            }
+
+            .image_cell {
+                display: inline-block;
+                border-radius: 7px;
+                background-color: #fff;
+                background-size: 100px;
+                background-repeat: no-repeat;
+                cursor: pointer;
+                overflow: hidden;
+                width: 100px;
+                height: 100px;
+                margin-right: 2px;
+            }
+
+            .image_true {
+                border-color: #7acd7a;
+            }
+            
+             .game_droppable {
+                margin: auto;
+                padding-left: 10px;
+                padding-top: 10px;
+                float: left;
+                border-radius: 7px;                
+                width: 417px;
+                height: 323px;
+                background: rgb(2,0,36);
+                background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 50%, rgba(0,212,255,1) 100%);
+            }
+
+            .highlight {
+                background: rgb(2,0,36);
+                background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 0%, rgba(0,212,255,1) 100%);
+            }
+
+            .confirmation {
+                display: none;
+                width: 300px;
+                height: 100px;;
+            }
+        
         </style>
     </head>
     
@@ -19,37 +72,50 @@
         <div class="game_canvas">
             <div>Welche Merkmale würdest du den Meeressäugern zuordnen? Note: We are working on hand drawn images.</div>         
             
-            <div id="image_source" class="image_row mt10"></div>
-            <div id="image_destination_top_true" class="image_row"></div>                
-                <div style="margin: auto;">
-                    <div class="image_destination_left_true"></div>
-                    <div class="game_droppable">
-                        <div class="image_whale"><div class="arrows"><div class="image_whale baby"></div></div></div>                            
+            <div id="image_source" class="image_row mt20" style="width: 1022px"></div>              
+            <div style="margin-top: 60px;">
+                <div style="height: 30px; padding: 10px;">
+                    <span style="float: left">Merkmal eines Wals</span><span style="float: right; margin-right: 225px">Kein Merkmal eines Wals</span>
+                </div>
+                
+                <div id="droppable_true" class="game_droppable">
+                    <div class="image_whale"><div class="arrows"><div class="image_whale baby"></div></div></div>                            
+                </div>
+                <div class="game_modal">
+                    <div class="game_modal_content">
+                        <span class="game_modal_head true"></span>
+                        <div id="modalText"></div>
                     </div>
-                    <div class="image_destination_right_true"></div>
-                </div>             
-            <div id="image_destination_false" class="image_row"></div>            
+                </div>
+                
+                <div id="droppable_false" class="game_droppable"></div>
+            </div>                       
         </div>
 
-        <div class="game_modal">
-            <div class="game_modal_content">
-                <span class="game_modal_head"></span>
-                <div id="modalText" class="mt10"></div>
-            </div>
-        </div>
+        <div class="confirmation"></div>
 
     <script>
         game_images = [
-            { image_id: "1",  image_src: "/images/blasloch.png",          characteristic: "Blasloch",    correct: "true",  modalHead: "Korrekt!",                          modalText: "Wale brauchen Luft zum Atmen. Dazu müssen sie an die Wasseroberfläche schwimmen, um dort durch ihr <strong>Blasloch</strong> einzuatmen. Das Blasloch ist also die “Nase” des Wals, die sich auf die Kopfoberseite verlagert hat." },
-            { image_id: "2",  image_src: "/images/fischeier.jpg",         characteristic: "Fischeier",   correct: "false", modalHead: "Denk nochmal nach, das ist falsch", modalText: "Fischweibchen legen ihre Eier im Wasser ab, wo sie von den Männchen befruchtet werden. Nach einiger Zeit schlüpfen dann kleine Fische aus den Eiern, die sich schon selbst versorgen können." },
-            { image_id: "3",  image_src: "/images/blubber.jpg",           characteristic: "Blubber",     correct: "true",  modalHead: "Toll gemacht!",                     modalText: "Wie du vielleicht schon gelernt hast, sind Fische wechselwarme Tiere. Meeressäugetiere haben allerdings eine gleichbleibende Körpertemperatur, die sie durch Bewegung und ihre dicke Fettschicht - <strong>den Blubber</strong> - aufrechterhalten müssen." },
-            { image_id: "4",  image_src: "/images/flosse_vertikal.png",   characteristic: "Fischflosse", correct: "false", modalHead: "Oje, das ist nicht richtig",        modalText: "Bei den Fischen ist die Schwanzflosse vertikal ausgerichtet, sie bewegt sich beim Schwimmen von links nach rechts. Beim Wal ist die Schwanzflosse waagerecht ausgerichtet, sie bewegt sich von oben nach unten." },
-            { image_id: "5",  image_src: "/images/kiemen.jpg",            characteristic: "Kiemen",      correct: "false", modalHead: "Das ist leider nicht richtig",      modalText: "Im Gegensatz zu Fischen haben Meeressäuger - wie alle Säugetiere - Lungen und keine Kiemen. Das heißt, sie können unter Wasser nicht atmen, sondern müssen immer wieder an die Wasseroberfläche kommen um Luft zu holen. Das hört sich vielleicht unpraktisch an, aber manche Wale können so bis zu 2 Stunden unter Wasser bleiben." },
-            { image_id: "6",  image_src: "/images/lunge_small.jpg",       characteristic: "Lunge",       correct: "true",  modalHead: "Super, das ist richtig!",           modalText: "Im Gegensatz zu Fischen haben Meeressäuger - wie alle Säugetiere - <strong>Lungen</strong> und keine Kiemen. Das heißt, sie können unter Wasser nicht atmen, sondern müssen immer wieder an die Wasseroberfläche kommen um Luft zu holen. Das hört sich vielleicht unpraktisch an, aber manche Wale können so bis zu 2 Stunden unter Wasser bleiben." },
-            { image_id: "7",  image_src: "/images/schuppen_small.jpg",    characteristic: "Schuppen",    correct: "false", modalHead: "Leider falsch!",                    modalText: "Anders als Fische haben Wale keine Schuppen. Sie haben sehr feine Härchen auf ihrer Haut, so wie auch du! Diese blieben über aus der Zeit, als sie noch an Land gelebt haben." },
-            { image_id: "8",  image_src: "/images/flosse_horizontal.png", characteristic: "Fluke",       correct: "true",  modalHead: "Das ist richtig!",                  modalText: "Meeressäuger haben zwar auch Flossen, jedoch sind sie anders aufgebaut als bei Fischen. Wale haben eine waagerechte Schwanzflosse - <strong>die Fluke</strong> -, die sich nach oben und unten bewegt und sie so nach vorne bringt." },
-            { image_id: "9",  image_src: "/images/brutpflege_small.jpg",  characteristic: "Brutpflege",  correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Bekanntlich bringen Säugetiere ihren Nachwuchs lebend zur Welt. Aber wie funktioniert das bei Meeressäugern? Auch bei ihnen entwickelt sich das Kind im Bauch der Mutter und wird im Wasser lebend geboren, bevor es den ersten Atemzug an der Oberfläche macht. Die Mutter kümmert sich um das Kalb und säugt es noch etwa 4 Monate bis zu 1 Jahr nach der Geburt." },
-            { image_id: "10", image_src: "/images/fell_small.jpg",        characteristic: "Fell ",       correct: "false", modalHead: "Das stimmt leider nicht.",          modalText: "Obwohl Wale Säugetiere sind, haben sie kein Fell, so wie die meisten ihrer landlebenden Verwandten. Sie haben feine Härchen auf der Haut- so wie auch du!" },
+            { image_id: "1",  image_src: "/images/blasloch.png",          characteristic: "Blasloch",           correct: "true",  modalHead: "Korrekt!",                          modalText: "Wale brauchen Luft zum Atmen. Dazu müssen sie an die Wasseroberfläche schwimmen, um dort durch ihr <strong>Blasloch</strong> einzuatmen. Das Blasloch ist also die “Nase” des Wals, die sich auf die Kopfoberseite verlagert hat." },
+            { image_id: "2",  image_src: "/images/fischeier.jpg",         characteristic: "Fischeier",          correct: "false", modalHead: "Denk nochmal nach, das ist falsch", modalText: "Fischweibchen legen ihre Eier im Wasser ab, wo sie von den Männchen befruchtet werden. Nach einiger Zeit schlüpfen dann kleine Fische aus den Eiern, die sich schon selbst versorgen können." },
+            { image_id: "3",  image_src: "/images/blubber.jpg",           characteristic: "Blubber",            correct: "true",  modalHead: "Toll gemacht!",                     modalText: "Wie du vielleicht schon gelernt hast, sind Fische wechselwarme Tiere. Meeressäugetiere haben allerdings eine gleichbleibende Körpertemperatur, die sie durch Bewegung und ihre dicke Fettschicht - <strong>den Blubber</strong> - aufrechterhalten müssen." },
+            { image_id: "4",  image_src: "/images/flosse_vertikal.png",   characteristic: "Fischflosse",        correct: "false", modalHead: "Oje, das ist nicht richtig",        modalText: "Bei den Fischen ist die Schwanzflosse vertikal ausgerichtet, sie bewegt sich beim Schwimmen von links nach rechts. Beim Wal ist die Schwanzflosse waagerecht ausgerichtet, sie bewegt sich von oben nach unten." },
+            { image_id: "5",  image_src: "/images/kiemen.jpg",            characteristic: "Kiemen",             correct: "false", modalHead: "Das ist leider nicht richtig",      modalText: "Im Gegensatz zu Fischen haben Meeressäuger - wie alle Säugetiere - Lungen und keine Kiemen. Das heißt, sie können unter Wasser nicht atmen, sondern müssen immer wieder an die Wasseroberfläche kommen um Luft zu holen. Das hört sich vielleicht unpraktisch an, aber manche Wale können so bis zu 2 Stunden unter Wasser bleiben." },
+            { image_id: "6",  image_src: "/images/lunge_small.jpg",       characteristic: "Lunge",              correct: "true",  modalHead: "Super, das ist richtig!",           modalText: "Im Gegensatz zu Fischen haben Meeressäuger - wie alle Säugetiere - <strong>Lungen</strong> und keine Kiemen. Das heißt, sie können unter Wasser nicht atmen, sondern müssen immer wieder an die Wasseroberfläche kommen um Luft zu holen. Das hört sich vielleicht unpraktisch an, aber manche Wale können so bis zu 2 Stunden unter Wasser bleiben." },
+            { image_id: "7",  image_src: "/images/schuppen_small.jpg",    characteristic: "Schuppen",           correct: "false", modalHead: "Leider falsch!",                    modalText: "Anders als Fische haben Wale keine Schuppen. Sie haben sehr feine Härchen auf ihrer Haut, so wie auch du! Diese blieben über aus der Zeit, als sie noch an Land gelebt haben." },
+            { image_id: "8",  image_src: "/images/flosse_horizontal.png", characteristic: "Fluke",              correct: "true",  modalHead: "Das ist richtig!",                  modalText: "Meeressäuger haben zwar auch Flossen, jedoch sind sie anders aufgebaut als bei Fischen. Wale haben eine waagerechte Schwanzflosse - <strong>die Fluke</strong> -, die sich nach oben und unten bewegt und sie so nach vorne bringt." },
+            { image_id: "9",  image_src: "/images/brutpflege_small.jpg",  characteristic: "Brutpflege",         correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Bekanntlich bringen Säugetiere ihren Nachwuchs lebend zur Welt. Aber wie funktioniert das bei Meeressäugern? Auch bei ihnen entwickelt sich das Kind im Bauch der Mutter und wird im Wasser lebend geboren, bevor es den ersten Atemzug an der Oberfläche macht. Die Mutter kümmert sich um das Kalb und säugt es noch etwa 4 Monate bis zu 1 Jahr nach der Geburt." },
+            { image_id: "10", image_src: "/images/fell_small.jpg",        characteristic: "Fell ",              correct: "false", modalHead: "Das stimmt leider nicht.",          modalText: "Obwohl Wale Säugetiere sind, haben sie kein Fell, so wie die meisten ihrer landlebenden Verwandten. Sie haben feine Härchen auf der Haut- so wie auch du!" },
+            { image_id: "11", image_src: "",                              characteristic: "Geruchsblind",       correct: "false", modalHead: "Das stimmt leider nicht!",          modalText: "Die Nase wurde beim Wal zu dem Blasloch umgewandelt, das heißt aber nicht, dass Wale nichts riechen können. Der Riechnerv ist zwar ganz zurückgebildet, jedoch haben Wale andere Riechfelder mit voll funktionierenden Riechzellen entwickelt, durch die ihr Geruchssinn schwach ausgebildet ist." },
+            { image_id: "12", image_src: "",                              characteristic: "Gesang",             correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Wale verständigen sich im Wasser über ihren Gesang. Jede Walart hat ihren eigenen Gesang, an dem sie sich erkennen. Das ist auch wichtig, denn Wasser leitet den Schall etwa 5x schneller als Luft - deshalb ist es für die Wale unter Wasser sehr laut. Leider wird die Kommunikation der Wale oft durch die Schifffahrt gestört und sie können sich nicht richtig orientieren." },
+            { image_id: "13", image_src: "",                              characteristic: "Wanderungen",        correct: "true",  modalHead: "Gut gemacht, das ist richtig!",     modalText: "Manche Wale legen innerhalb eines Jahres große Strecken zurück - die Bartenwale zum Beispiel wandern 6.000 bis 8.000km. Sie wandern, da die nahrungsreichen Gewässer sehr kalt sind und die Kälber dort sterben würden. Die Jungen werden deshalb in warmen Gewässern geboren." },
+            { image_id: "14", image_src: "",                              characteristic: "Walstrandung",       correct: "false", modalHead: "Das ist falsch!",                   modalText: "Durch den Schiffsverkehr verlieren Wale ihre Orientierung und können an Land stranden. Selbst wenn man sie nass und kühl hält ist dies für viele Wale ein Todesurteil, da die Schwerkraft an Land ihre Lunge zusammendrückt und sie so nicht mehr atmen können. " },
+            { image_id: "15", image_src: "",                              characteristic: "Gruppenverhalten",   correct: "true",  modalHead: "Das ist richtig!",                  modalText: "Wale leben nicht alleine, Weibchen bilden Gruppen von 10 bis 15 Tieren. Männchen leben nur während der Paarungszeit in einer Gruppe, sonst sind sie Einzelgänger. Die Weibchen versorgen gemeinsam den Nachwuchs, die “Tanten” passen auf die Kälber auf, während die Mütter auf die Jagd gehen." },
+            { image_id: "16", image_src: "",                              characteristic: "Taub",               correct: "false", modalHead: "Das ist leider falsch!",            modalText: "Obwohl Wale keine Ohrmuschel besitzen, ist ihr Ohr trotzdem so aufgebaut wie auch bei dir! Es gibt ein Außen-, Mittel- und Innenohr, mit dem Schallwellen wahrgenommen werden können. Die Ohrmuscheln wurden zurückgebildet, damit der Körper der Wale im Wasser besser gleiten kann." },
+            { image_id: "17", image_src: "",                              characteristic: "Seitenlinienorgan",  correct: "false", modalHead: "Leider falsch!",                    modalText: "Das Seitenliniensystem dient den Fischen, um Bewegungen im Wasser wahrzunehmen. Obwohl Wale auch im Wasser leben, haben sie kein Seitenliniensystem. Sie müssen sich auf ihre anderen Sinne verlassen." },
+            { image_id: "18", image_src: "",                              characteristic: "Geruchsblind ",      correct: "false", modalHead: "Das stimmt leider nicht!",          modalText: "Die Nase wurde beim Wal zu dem Blasloch umgewandelt, das heißt aber nicht, dass Wale nichts riechen können. Der Riechnerv ist zwar ganz zurückgebildet, jedoch haben Wale andere Riechfelder mit voll funktionierenden Riechzellen entwickelt, durch die ihr Geruchssinn schwach ausgebildet ist." },
+            { image_id: "19", image_src: "",                              characteristic: "Pflanzenfresser",    correct: "false", modalHead: "Das stimmt leider nicht!",          modalText: "Die meisten Paarhufer wie zum Beispiel Pferde sind zwar Pflanzenfresser, Wale ernähren sich aber nicht von Pflanzen. Sie fressen Fleisch in Form von Krill oder auch Pinguinen. Jede Walart bevorzugt eine andere “Fleischsorte”." },
+            { image_id: "20", image_src: "",                              characteristic: "Fleischfresser",     correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Wale sind Fleischfresser, ihre Beutetiere unterscheiden sich je nach Walart. Bartenwale ernähren sich von tierischem Plankton und Krill. Zahnwale fressen zum Beispiel Pinguine, Fische oder auch kleinere Wale." },
         ];
 
         var image = {};
@@ -58,30 +124,22 @@
 
         $(document).ready(function() {
             for (image of game_images) {
-                $("#image_source").append(
-                '<div id="image_' + image.image_id + '" class="image_cell" style="background-image: url(' + image.image_src + ')">' + 
-                '</div>')
                 var setID = "#image_" + image.image_id;
+
+                $("#image_source").append(
+                '<div id="image_' + image.image_id + '" class="image_cell" style="background-image: url(' + image.image_src + ')"></div>'
+                );               
+                
+                if (image.correct == "true") {
+                    $(setID).addClass("true");
+                } else {
+                    $(setID).addClass("false");
+                }
+                
                 $(setID).append('<div id="label_' + image.image_id +'" class="image_label"></div>');
                 addLabel(image.image_id);
                 
                 addDraggable(setID)
-
-                if (image.image_id == 6) {
-                    $(".image_destination_left_true").append('<div id="#image_true_' + image.image_id + '" class="image_true border_true left_right" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
-                }
-                if (image.image_id == 9) {
-                    $(".image_destination_right_true").append('<div id="#image_true_' + image.image_id + '" class="image_true border_true left_right" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
-                }
-                if (image.image_id == 1) {
-                    $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true border_true top" style="background-image: url(' + image.image_src + '); margin-right: 85px;"  onclick="showModal(' + image.image_id + ')"></div>');
-                }
-                if (image.image_id == 3) {
-                    $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true border_true top" style="background-image: url(' + image.image_src + '); margin-right: 85px;"  onclick="showModal(' + image.image_id + ')"></div>');
-                }
-                if (image.image_id == 8) {
-                    $("#image_destination_top_true").append('<div id="#image_true_' + image.image_id + '" class="image_true border_true top" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
-                }
             }   
             addDroppable();
         });
@@ -90,58 +148,38 @@
             $("#label_" + id).text(image.characteristic);
         }
 
+        /* function confirmation() {
+            $(".confirmation").text(image.modalHead);
+            $(".confirmation").fadeIn(function() { $(".confirmation").next().fadeOut() });
+            $(".confirmation").center(true);
+        } */
+
         // ---------- open and close modal dialog ----------
         function showModal(id) {
-            if (game_images[(id - 1)].correct == "false") {
-                $(".game_modal_head").css("color", "#ff6666");
-                
-            } else {
-                $(".game_modal_head").css("color", "#229922");
-            }
-            if ($("#image_" + image.image_id).is(".ui-draggable")) {
-                    $(".game_modal_head").text(game_images[(id - 1)].modalHead);  
-                }   else {
-                    $(".game_modal_head").text(game_images[(id - 1)].characteristic);
-                }
-            
+            $(".game_modal_head").text(game_images[(id - 1)].characteristic);
             $("#modalText").html(game_images[(id - 1)].modalText);                
-            $(".game_modal").show("fade", "fast");
-            $(".game_modal_content").center(true);
+            $(".game_modal_content").show("fade", "fast");
+           // $(".game_modal_content").center(true);
         }
 
-        $(window).click(function(e) {                
-            if (e.target.className == "game_modal") {                   
-                $(".game_modal").hide("fade", "fast");
-
-                console.log("Is image " + image.image_id + " draggable? " + $("#image_" + image.image_id).is(".ui-draggable"));
-
-                if ($("#image_" + image.image_id).is(".ui-draggable") && image.correct == "false") {
-                    console.log("draggable!");
-                    removeDraggable();
-                    moveElement(false);
-                } else if ($("#image_" + image.image_id).is(".ui-draggable")) {
-                    removeDraggable();
-                    $("#image_" + image.image_id).addClass("border_true");
-                    if (dropCounter === 5) moveElement(true);
-                    /*if (image.image_id == 1) {
-                        $("#image_1").animate({ top: $(".game_droppable").offset().top + "px", left: $(".game_droppable").offset().left + "px" }, 1000);
-                    }*/
-                }    
-            }    
-        });
+        function hideModal() {
+            $(".game_modal_content").hide("fade", "fast");
+        }
 
         // ---------- drag and drop ----------
         function addDraggable(setID) {
             $(setID).draggable({
-                revert: "invalid",
+                revert: true,
                 containment: "window",
                 scroll: false, 
                 stack: ".image_cell",
-                start: function() {
+                start: function(event, ui) {
                     var id      = $(this).attr("id");
                     var regex   = /image_(\d+)/;
                     image       = game_images[parseInt(regex.exec(id)[1]) - 1];
                     console.log(image.image_id);
+                    
+                    hideModal();
                 },                                                                  
             });
         }
@@ -149,9 +187,24 @@
         function addDroppable() {
             $(".game_droppable").droppable({
                 hoverClass: "highlight",
+
                 drop: function(event, ui) {
-                    if (image.correct == "true") dropCounter++;
-                    showModal(image.image_id);            
+                    if (image.correct == "true" && $(this).is("#droppable_true")) {
+                        //confirmation();
+                        removeDraggable();
+                        dropCounter++;
+                        showModal(image.image_id);
+                        $("#image_" + image.image_id).animate({ opacity: "0%" }, 100); 
+                        $(this).append('<div id="#image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"><div id="label_' + image.image_id +'" class="image_label">' + image.characteristic + '</div></div>');
+                    } else {
+                        if (image.correct == "false" && $(this).is("#droppable_false")) {
+                            removeDraggable();
+                            dropCounter++;
+                            showModal(image.image_id);
+                            $("#image_" + image.image_id).animate({ opacity: "0%" }, 100); 
+                            $(this).append('<div id="#image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"><div id="label_' + image.image_id +'" class="image_label">' + image.characteristic + '</div></div>');
+                        }
+                    }                                
                 }   
             });
         }
@@ -159,39 +212,6 @@
         function removeDraggable() {
             $("#image_" + image.image_id).draggable("destroy").css("cursor", "default");
         }
-
-        function moveElement(moveAll) {
-            if (moveAll) {
-                console.log("move all: ");
-                for (image of game_images) {
-                    if ($("#image_" + image.image_id).is(".ui-draggable") && image.correct == "false") {
-                        $("#image_destination_false").append('<div id="#image_false_' + image.image_id + '" class="image_false" style="background-image: url(' + image.image_src + ')"  onclick = "showModal(' + image.image_id + ')"></div>');
-                        //$("#image_false_" + image.image_id).append('<div id="label_' + (image.image_id + "moved") +'" class="image_label"></div>');
-                        //addLabel((image.image_id + "moved"));
-                        animation(image.image_id);
-                        removeDraggable();
-                    }  else {
-                    animation(image.image_id);
-                    setTimeout(function(){ jQuery(".image_whale").fadeIn(3500, "swing") }, 1500);
-                    setTimeout(function(){ jQuery(".arrows").fadeIn(3500, "swing") }, 5000);
-                    }          
-                } 
-            } else {
-                console.log("move id: " + image.image_id);
-                $("#image_destination_false").append('<div id="#image_false_' + image.image_id + '" class="image_false" style="background-image: url(' + image.image_src + ')"  onclick = "showModal(' + image.image_id + ')"></div>');
-                //$("#image_false_" + image.image_id).append('<div id="label_' + (image.image_id + "moved") +'" class="image_label"></div>');
-                //addLabel((image.image_id + "moved"));
-                animation(image.image_id);
-            }
-        }
-
-        function animation(id) {
-            $("#image_" + id).animate({ opacity: "0%" }, 1500);
-            $(".image_" + image.correct).animate({ opacity: "100%" }, 3000);
-        }   
-
-            //$("#image_1").animate({ top: $(".game_droppable").offset().top + "px", left: $(".game_droppable").offset().left + "px" }, 1000);
-            //image_destination.appendChild(image);
 
     </script>
     </body>
