@@ -266,25 +266,6 @@ body {
     box-shadow: 2px 2px 5px #999; 
 }
 
-.image_whale {
-    display: none;
-    width: inherit;
-    height: inherit;
-    background-image: url("/images/gameWhale.png");
-    background-size: 375px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.baby {
-    margin-bottom: 20px;
-    width: 300px;
-    height: 230px;
-    float: right;
-    background-size: 175px;
-    background-position: bottom, right;
-}
-
 .arrows {
     display: none;
     width: 500px;
@@ -332,18 +313,6 @@ body {
     margin: auto;
 }
 
-.image_label {
-    background-color:rgba(200,200,200, 0.4);
-    color: #333333;
-    font-size: 18px;
-    line-height: 25px;
-    width: 100px;
-    height: 27px;
-    margin-top: 73px;
-    bottom: 0px;
-    text-align: center;
-}
-
 .image_cell {
     display: inline-block;
     border-radius: 7px;
@@ -389,14 +358,6 @@ body {
 
 .top {
     display: inline-block;
-}
-
-#image_true_1 {
-    margin-right: 80px;
-}
-
-#image_true_3 {
-    margin-right: 80px;
 }
 
 .true {

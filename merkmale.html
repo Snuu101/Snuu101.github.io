@@ -23,6 +23,12 @@
                 margin: auto;
             }
 
+            .image_row {
+                margin: auto;
+                width: 100%;
+                height: 287px;
+            }
+
             .image_cell {
                 display: inline-block;
                 border-radius: 7px;
@@ -39,6 +45,18 @@
             .image_true {
                 border-color: #7acd7a;
             }
+
+            .image_label {
+                background-color:rgba(200,200,200, 0.4);
+                color: #333333;
+                font-size: 18px;
+                line-height: 25px;
+                width: 100px;
+                height: 27px;
+                margin-top: 73px;
+                bottom: 0px;
+                text-align: center;
+            }
             
              .game_droppable {
                 margin: auto;
@@ -53,9 +71,50 @@
             }
 
             .highlight {
-                background: rgb(2,0,36);
-                background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 0%, rgba(0,212,255,1) 100%);
+                box-shadow: 0px 0px 5px 5px #999; 
             }
+
+            #droppable_false {
+                background: rgb(249,215,28);
+                background: linear-gradient(170deg, rgba(249,215,28,1) 0%, rgba(239,142,56,1) 10%, rgba(172,180,241,1) 25%, rgba(122,193,222,1) 56%, rgba(140,204,176,1) 68%, rgba(103,196,0,1) 100%);
+            }
+
+            .image_whale {
+                width: inherit;
+                height: inherit;
+                background-image: url("/images/gameWhale.png");
+                background-size: 300px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            
+            .image_animals {
+                width: inherit;
+                height: inherit;
+                background-image: url("/images/animals.png");
+                background-size: 300px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .image_win {
+                display: none;
+                width: inherit;
+                height: inherit;
+                background-image: url("/images/orca_cartoon.png");
+                background-size: 480px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+                .baby {
+                    margin-top: 60px;
+                    margin-right: 340px;
+                    width: 300px;
+                    height: 230px;
+                    float: right;
+                    background-size: 220px;
+                    background-position: bottom;
+                }
 
             .confirmation {
                 display: none;
@@ -73,26 +132,32 @@
             <div>Welche Merkmale würdest du den Meeressäugern zuordnen? Note: We are working on hand drawn images.</div>         
             
             <div id="image_source" class="image_row mt20" style="width: 1022px"></div>              
-            <div style="margin-top: 60px;">
-                <div style="height: 30px; padding: 10px;">
+            <div>
+                <div style="height: 30px; padding: 5px;">
                     <span style="float: left">Merkmal eines Wals</span><span style="float: right; margin-right: 225px">Kein Merkmal eines Wals</span>
                 </div>
                 
                 <div id="droppable_true" class="game_droppable">
-                    <div class="image_whale"><div class="arrows"><div class="image_whale baby"></div></div></div>                            
+                    <div class="image_whale"></div>                           
                 </div>
                 <div class="game_modal">
                     <div class="game_modal_content">
                         <span class="game_modal_head true"></span>
                         <div id="modalText"></div>
                     </div>
+                </div>                
+                <div id="droppable_false" class="game_droppable">
+                    <div class="image_animals"></div>
                 </div>
-                
-                <div id="droppable_false" class="game_droppable"></div>
             </div>                       
         </div>
 
-        <div class="confirmation"></div>
+        <audio id="ok">
+            <source src= /audio/ok.mp3>
+        </audio>
+        <audio id="nok">
+            <source src= /audio/nok.mp3>
+        </audio>
 
     <script>
         game_images = [
@@ -106,7 +171,7 @@
             { image_id: "8",  image_src: "/images/flosse_horizontal.png", characteristic: "Fluke",              correct: "true",  modalHead: "Das ist richtig!",                  modalText: "Meeressäuger haben zwar auch Flossen, jedoch sind sie anders aufgebaut als bei Fischen. Wale haben eine waagerechte Schwanzflosse - <strong>die Fluke</strong> -, die sich nach oben und unten bewegt und sie so nach vorne bringt." },
             { image_id: "9",  image_src: "/images/brutpflege_small.jpg",  characteristic: "Brutpflege",         correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Bekanntlich bringen Säugetiere ihren Nachwuchs lebend zur Welt. Aber wie funktioniert das bei Meeressäugern? Auch bei ihnen entwickelt sich das Kind im Bauch der Mutter und wird im Wasser lebend geboren, bevor es den ersten Atemzug an der Oberfläche macht. Die Mutter kümmert sich um das Kalb und säugt es noch etwa 4 Monate bis zu 1 Jahr nach der Geburt." },
             { image_id: "10", image_src: "/images/fell_small.jpg",        characteristic: "Fell ",              correct: "false", modalHead: "Das stimmt leider nicht.",          modalText: "Obwohl Wale Säugetiere sind, haben sie kein Fell, so wie die meisten ihrer landlebenden Verwandten. Sie haben feine Härchen auf der Haut- so wie auch du!" },
-            { image_id: "11", image_src: "",                              characteristic: "Geruchsblind",       correct: "false", modalHead: "Das stimmt leider nicht!",          modalText: "Die Nase wurde beim Wal zu dem Blasloch umgewandelt, das heißt aber nicht, dass Wale nichts riechen können. Der Riechnerv ist zwar ganz zurückgebildet, jedoch haben Wale andere Riechfelder mit voll funktionierenden Riechzellen entwickelt, durch die ihr Geruchssinn schwach ausgebildet ist." },
+            { image_id: "11", image_src: "",                              characteristic: "Unsterblichkeit",    correct: "false", modalHead: "Das ist leider falsch!",            modalText: "Wale können sehr alt werden, Grönlandwale können über 200 Jahre alt werden. Damit sind sie die am ältesten werdenden Säugetiere. Die Lebenserwartung ist aber bei jedem Wal unterschiedlich. Wale sterben, wenn sie irgendwann nicht mehr stark genug sind, um an die Wasseroberfläche zu schwimmen und Luft zu holen." },
             { image_id: "12", image_src: "",                              characteristic: "Gesang",             correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Wale verständigen sich im Wasser über ihren Gesang. Jede Walart hat ihren eigenen Gesang, an dem sie sich erkennen. Das ist auch wichtig, denn Wasser leitet den Schall etwa 5x schneller als Luft - deshalb ist es für die Wale unter Wasser sehr laut. Leider wird die Kommunikation der Wale oft durch die Schifffahrt gestört und sie können sich nicht richtig orientieren." },
             { image_id: "13", image_src: "",                              characteristic: "Wanderungen",        correct: "true",  modalHead: "Gut gemacht, das ist richtig!",     modalText: "Manche Wale legen innerhalb eines Jahres große Strecken zurück - die Bartenwale zum Beispiel wandern 6.000 bis 8.000km. Sie wandern, da die nahrungsreichen Gewässer sehr kalt sind und die Kälber dort sterben würden. Die Jungen werden deshalb in warmen Gewässern geboren." },
             { image_id: "14", image_src: "",                              characteristic: "Walstrandung",       correct: "false", modalHead: "Das ist falsch!",                   modalText: "Durch den Schiffsverkehr verlieren Wale ihre Orientierung und können an Land stranden. Selbst wenn man sie nass und kühl hält ist dies für viele Wale ein Todesurteil, da die Schwerkraft an Land ihre Lunge zusammendrückt und sie so nicht mehr atmen können. " },
@@ -136,23 +201,23 @@
                     $(setID).addClass("false");
                 }
                 
-                $(setID).append('<div id="label_' + image.image_id +'" class="image_label"></div>');
-                addLabel(image.image_id);
+                addDraggable(setID);
                 
-                addDraggable(setID)
+                $(setID).append('<div id="label_' + image.image_id +'" class="image_label"></div>');
+                addLabel(image.image_id);   
             }   
             addDroppable();
         });
 
         function addLabel(id) {
-            $("#label_" + id).text(image.characteristic);
+            $("#label_" + id).text(image.characteristic);           
+           
+            if (image.characteristic.length > 10) {
+                $("#label_" + id).css("font-size", "16px");
+                if (image.characteristic.length > 13) $("#label_" + id).css("font-size", "14px");
+                if (image.characteristic.length > 15) $("#label_" + id).css("font-size", "12px");
+            }            
         }
-
-        /* function confirmation() {
-            $(".confirmation").text(image.modalHead);
-            $(".confirmation").fadeIn(function() { $(".confirmation").next().fadeOut() });
-            $(".confirmation").center(true);
-        } */
 
         // ---------- open and close modal dialog ----------
         function showModal(id) {
@@ -173,6 +238,7 @@
                 containment: "window",
                 scroll: false, 
                 stack: ".image_cell",
+                
                 start: function(event, ui) {
                     var id      = $(this).attr("id");
                     var regex   = /image_(\d+)/;
@@ -190,28 +256,51 @@
 
                 drop: function(event, ui) {
                     if (image.correct == "true" && $(this).is("#droppable_true")) {
-                        //confirmation();
+                        play_audio("ok");
                         removeDraggable();
-                        dropCounter++;
                         showModal(image.image_id);
-                        $("#image_" + image.image_id).animate({ opacity: "0%" }, 100); 
-                        $(this).append('<div id="#image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"><div id="label_' + image.image_id +'" class="image_label">' + image.characteristic + '</div></div>');
+                        $("#image_" + image.image_id).animate({ opacity: "0%" }, 100);
+                        //$("#image_" + image.image_id).empty();
+                        $(".image_whale").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+                        $("#image_true_" + image.image_id).append($("#label_" + image.image_id));                         
+                        winningCondition();                        
                     } else {
                         if (image.correct == "false" && $(this).is("#droppable_false")) {
+                            play_audio("ok");
                             removeDraggable();
-                            dropCounter++;
                             showModal(image.image_id);
                             $("#image_" + image.image_id).animate({ opacity: "0%" }, 100); 
-                            $(this).append('<div id="#image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"><div id="label_' + image.image_id +'" class="image_label">' + image.characteristic + '</div></div>');
-                        }
-                    }                                
+                            $(".image_animals").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+                            $("#image_true_" + image.image_id).append($("#label_" + image.image_id)); 
+                            winningCondition();
+                        } else {play_audio("nok")}
+                    }                              
                 }   
             });
+        }
+
+        function winningCondition() {
+            dropCounter++;
+            if (dropCounter === 20) {
+                $(".image_row").empty().append("<div>End</div>");
+                $(".image_row").html('<div class="image_win"><div class="image_win baby"></div></div>');
+                $(".image_win").fadeIn(3500, "swing");
+
+
+                $(".image_whale").css("background-image", "url('')");
+                $(".image_animals").css("background-image", "url('')");
+            }
         }
 
         function removeDraggable() {
             $("#image_" + image.image_id).draggable("destroy").css("cursor", "default");
         }
+
+        function play_audio(id) {
+                var audio = document.getElementById(id);
+                if (!audio.paused) {audio.pause()}
+                audio.play();
+            }
 
     </script>
     </body>
