@@ -74,9 +74,14 @@
                 box-shadow: 0px 0px 5px 5px #999; 
             }
 
-            #droppable_false {
+            /* #droppable_false {
                 background: rgb(249,215,28);
                 background: linear-gradient(170deg, rgba(249,215,28,1) 0%, rgba(239,142,56,1) 10%, rgba(172,180,241,1) 25%, rgba(122,193,222,1) 56%, rgba(140,204,176,1) 68%, rgba(103,196,0,1) 100%);
+            } */
+
+            #droppable_false {
+                background: rgb(255,216,155);
+                background: linear-gradient(349deg, rgba(255,216,155,1) 0%, rgba(119,138,136,1) 46%, rgba(25,84,123,1) 100%);
             }
 
             .image_whale {
@@ -120,8 +125,7 @@
                 display: none;
                 width: 300px;
                 height: 100px;;
-            }
-        
+            }        
         </style>
     </head>
     
@@ -260,7 +264,6 @@
                         removeDraggable();
                         showModal(image.image_id);
                         $("#image_" + image.image_id).animate({ opacity: "0%" }, 100);
-                        //$("#image_" + image.image_id).empty();
                         $(".image_whale").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
                         $("#image_true_" + image.image_id).append($("#label_" + image.image_id));                         
                         winningCondition();                        
@@ -301,7 +304,6 @@
                 if (!audio.paused) {audio.pause()}
                 audio.play();
             }
-
     </script>
     </body>
 </html>
