@@ -80,6 +80,10 @@
     content: "\6a";
 }
 
+.icon-sound:before {
+    content: "\65"
+}
+
 /*---------- General ----------*/
 * {
     margin: 0;

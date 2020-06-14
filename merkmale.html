@@ -9,11 +9,27 @@
 
         <style>
             body { margin: 0px; background: #7acd7a url("/images/bio_bg.png"); outline: 0px none; -webkit-appearance: none; -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-            .game_canvas { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; margin: auto; padding: 14px 7px; width: 1180px; height: 700px; background-color: #f7f6f5; border: 1px solid #999; border-radius: 15px; box-shadow: 2px 2px 5px #999; }
+            
+            .game_canvas { 
+                position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; margin: auto; padding: 14px 7px; width: 1180px; height: 700px; background-color: #f7f6f5; border: 1px solid #999; border-radius: 0px 15px 15px 15px; box-shadow: 2px 2px 5px #999;
+            }
+
+            .canvas_label {
+                position:absolute;
+                top: 0px; right: 881px; bottom: 770px; left: 0px;
+                margin: auto;
+                width: 300px;
+                height: 30px;
+                padding: 5px 7px;
+                background-color: #f7f6f5;
+                border: 1px solid #999;
+                border-radius: 15px 15px 0px 0px;
+                border-bottom: 0px;
+            }
             
             .game_modal {
                 width: 325px;
-                height: 323px;
+                height: 333px;
                 float: left;
             }
 
@@ -25,7 +41,7 @@
 
             .image_row {
                 margin: auto;
-                width: 100%;
+                width: 1022px;
                 height: 287px;
             }
 
@@ -67,43 +83,38 @@
                 width: 417px;
                 height: 323px;
                 background: rgb(2,0,36);
-                background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 50%, rgba(0,212,255,1) 100%);
+                background: linear-gradient(11deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 50%, rgba(0,212,255,1) 100%);
             }
 
             .highlight {
                 box-shadow: 0px 0px 5px 5px #999; 
             }
 
-            /* #droppable_false {
-                background: rgb(249,215,28);
-                background: linear-gradient(170deg, rgba(249,215,28,1) 0%, rgba(239,142,56,1) 10%, rgba(172,180,241,1) 25%, rgba(122,193,222,1) 56%, rgba(140,204,176,1) 68%, rgba(103,196,0,1) 100%);
-            } */
-
             #droppable_false {
-                background: rgb(255,216,155);
-                background: linear-gradient(349deg, rgba(255,216,155,1) 0%, rgba(119,138,136,1) 46%, rgba(25,84,123,1) 100%);
+                background: rgb(2,0,36);
+                background: linear-gradient(349deg, rgba(2,0,36,1) 0%, rgba(6,66,115,1) 50%, rgba(0,212,255,1) 100%);
             }
 
-            .image_whale {
+            .image_whale_true {
                 width: inherit;
                 height: inherit;
-                background-image: url("/images/gameWhale.png");
-                background-size: 300px;
+                background-image: url("/images/gameWhale_true.png");
+                background-size: 315px;
                 background-repeat: no-repeat;
                 background-position: center;
             }
             
-            .image_animals {
+            .image_whale_false {
                 width: inherit;
                 height: inherit;
-                background-image: url("/images/animals.png");
-                background-size: 300px;
+                background-image: url("/images/gameWhale_false.png");
+                background-size: 315px;
                 background-repeat: no-repeat;
                 background-position: center;
             }
 
             .image_win {
-                display: none;
+                opacity: 0%;
                 width: inherit;
                 height: inherit;
                 background-image: url("/images/orca_cartoon.png");
@@ -121,10 +132,14 @@
                     background-position: bottom;
                 }
 
-            .confirmation {
-                display: none;
-                width: 300px;
-                height: 100px;;
+            .congratulation {
+                position: absolute;
+                bottom: 520px;
+                opacity: 33%;
+                font-size: 0px;
+                width: 100%;
+                height: 50px;
+                text-align: center;
             }        
         </style>
     </head>
@@ -132,28 +147,31 @@
     <body>
         <div class="button_close" onclick="history.back(-1)">x</div>
         
+        <div class="canvas_label">Die Merkmale der Meeressäuger</div>
         <div class="game_canvas">
-            <div>Welche Merkmale würdest du den Meeressäugern zuordnen? Note: We are working on hand drawn images.</div>         
+            <div>Welche Merkmale würdest du den Meeressäugern zuordnen?</div>         
             
-            <div id="image_source" class="image_row mt20" style="width: 1022px"></div>              
+            <div id="image_source" class="image_row mt20"></div>              
             <div>
                 <div style="height: 30px; padding: 5px;">
-                    <span style="float: left">Merkmal eines Wals</span><span style="float: right; margin-right: 225px">Kein Merkmal eines Wals</span>
+                    <span style="float: left">Merkmale von Walen</span><span style="float: right; margin-right: 213px">Keine Merkmale von Walen</span>
                 </div>
                 
                 <div id="droppable_true" class="game_droppable">
-                    <div class="image_whale"></div>                           
+                    <div class="image_whale_true"></div>                           
                 </div>
                 <div class="game_modal">
                     <div class="game_modal_content">
                         <span class="game_modal_head true"></span>
-                        <div id="modalText"></div>
+                        <div id="modalText" class="mt10"></div>
                     </div>
                 </div>                
                 <div id="droppable_false" class="game_droppable">
-                    <div class="image_animals"></div>
+                    <div class="image_whale_false"></div>
                 </div>
-            </div>                       
+            </div>
+
+            <div class='congratulation true'>Super, du hast alles richtig zugeordnet!</div>                      
         </div>
 
         <audio id="ok">
@@ -173,7 +191,7 @@
             { image_id: "6",  image_src: "/images/lunge.jpg",             characteristic: "Lunge",              correct: "true",  modalHead: "Super, das ist richtig!",           modalText: "Im Gegensatz zu Fischen haben Meeressäuger - wie alle Säugetiere - <strong>Lungen</strong> und keine Kiemen. Das heißt, sie können unter Wasser nicht atmen, sondern müssen immer wieder an die Wasseroberfläche kommen um Luft zu holen. Das hört sich vielleicht unpraktisch an, aber manche Wale können so bis zu 2 Stunden unter Wasser bleiben." },
             { image_id: "7",  image_src: "/images/schuppen.jpg",          characteristic: "Schuppen",           correct: "false", modalHead: "Leider falsch!",                    modalText: "Anders als Fische haben Wale keine Schuppen. Sie haben sehr feine Härchen auf ihrer Haut, so wie auch du! Diese blieben über aus der Zeit, als sie noch an Land gelebt haben." },
             { image_id: "8",  image_src: "/images/fluke.jpg",             characteristic: "Fluke",              correct: "true",  modalHead: "Das ist richtig!",                  modalText: "Meeressäuger haben zwar auch Flossen, jedoch sind sie anders aufgebaut als bei Fischen. Wale haben eine waagerechte Schwanzflosse - <strong>die Fluke</strong> -, die sich nach oben und unten bewegt und sie so nach vorne bringt." },
-            { image_id: "9",  image_src: "/images/brutpflege.png",        characteristic: "Brutpflege",         correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Bekanntlich bringen Säugetiere ihren Nachwuchs lebend zur Welt. Aber wie funktioniert das bei Meeressäugern? Auch bei ihnen entwickelt sich das Kind im Bauch der Mutter und wird im Wasser lebend geboren, bevor es den ersten Atemzug an der Oberfläche macht. Die Mutter kümmert sich um das Kalb und säugt es noch etwa 4 Monate bis zu 1 Jahr nach der Geburt." },
+            { image_id: "9",  image_src: "/images/brutpflege.png",        characteristic: "Brutpflege",         correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Bekanntlich bringen Säugetiere ihren Nachwuchs lebend zur Welt. Aber wie funktioniert das bei Meeressäugern? Auch bei ihnen entwickelt sich das Kind im Bauch der Mutter und wird im Wasser lebend geboren, bevor es den ersten Atemzug an der Oberfläche macht. Die Mutter kümmert sich um das Kalb und säugt es noch etwa 4 bis 12 Monate nach der Geburt." },
             { image_id: "10", image_src: "/images/fell.jpg",              characteristic: "Fell ",              correct: "false", modalHead: "Das stimmt leider nicht.",          modalText: "Obwohl Wale Säugetiere sind, haben sie kein Fell, so wie die meisten ihrer landlebenden Verwandten. Sie haben feine Härchen auf der Haut- so wie auch du!" },
             { image_id: "11", image_src: "",                              characteristic: "Unsterblichkeit",    correct: "false", modalHead: "Das ist leider falsch!",            modalText: "Wale können sehr alt werden, Grönlandwale können über 200 Jahre alt werden. Damit sind sie die am ältesten werdenden Säugetiere. Die Lebenserwartung ist aber bei jedem Wal unterschiedlich. Wale sterben, wenn sie irgendwann nicht mehr stark genug sind, um an die Wasseroberfläche zu schwimmen und Luft zu holen." },
             { image_id: "12", image_src: "/images/gesang.jpg",            characteristic: "Gesang",             correct: "true",  modalHead: "Toll, das stimmt!",                 modalText: "Wale verständigen sich im Wasser über ihren Gesang. Jede Walart hat ihren eigenen Gesang, an dem sie sich erkennen. Das ist auch wichtig, denn Wasser leitet den Schall etwa 5x schneller als Luft - deshalb ist es für die Wale unter Wasser sehr laut. Leider wird die Kommunikation der Wale oft durch die Schifffahrt gestört und sie können sich nicht richtig orientieren." },
@@ -211,8 +229,26 @@
                 addLabel(image.image_id);   
             }   
             addDroppable();
+
+            // ---------- instantly win by clicking the canvas label ----------
+            $(".canvas_label").click(function() {
+                dropCounter = 19;
+
+                for (image of game_images) {
+                    if (image.correct == "true") {
+                        $(".image_whale_true").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+                        $("#image_true_" + image.image_id).append($("#label_" + image.image_id));
+                    } else {
+                        $(".image_whale_false").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+                        $("#image_true_" + image.image_id).append($("#label_" + image.image_id)); 
+                    }  
+                }
+                winningCondition();
+                $(".canvas_label").unbind("click");
+            });
         });
 
+        // ---------- add labels to images ----------
         function addLabel(id) {
             $("#label_" + id).text(image.characteristic);           
            
@@ -228,7 +264,6 @@
             $(".game_modal_head").text(game_images[(id - 1)].characteristic);
             $("#modalText").html(game_images[(id - 1)].modalText);                
             $(".game_modal_content").show("fade", "fast");
-           // $(".game_modal_content").center(true);
         }
 
         function hideModal() {
@@ -254,6 +289,7 @@
             });
         }
 
+        // ---------- droppable true and false ----------
         function addDroppable() {
             $(".game_droppable").droppable({
                 hoverClass: "highlight",
@@ -264,7 +300,7 @@
                         removeDraggable();
                         showModal(image.image_id);
                         $("#image_" + image.image_id).animate({ opacity: "0%" }, 100);
-                        $(".image_whale").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+                        $(".image_whale_true").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
                         $("#image_true_" + image.image_id).append($("#label_" + image.image_id));                         
                         winningCondition();                        
                     } else {
@@ -273,7 +309,7 @@
                             removeDraggable();
                             showModal(image.image_id);
                             $("#image_" + image.image_id).animate({ opacity: "0%" }, 100); 
-                            $(".image_animals").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
+                            $(".image_whale_false").append('<div id="image_true_' + image.image_id + '" class="image_cell image_true" style="background-image: url(' + image.image_src + ')"  onclick="showModal(' + image.image_id + ')"></div>');
                             $("#image_true_" + image.image_id).append($("#label_" + image.image_id)); 
                             winningCondition();
                         } else {play_audio("nok")}
@@ -282,23 +318,32 @@
             });
         }
 
+        // ---------- check winning condition and end animation ----------
         function winningCondition() {
             dropCounter++;
+
             if (dropCounter === 20) {
-                $(".image_row").empty().append("<div>End</div>");
-                $(".image_row").html('<div class="image_win"><div class="image_win baby"></div></div>');
-                $(".image_win").fadeIn(3500, "swing");
+                $(".image_row").empty().append('<div class="image_win"><div class="image_win baby"></div></div>');
+                
+                $(".congratulation")
+                    .animate({ 
+                        opacity: "100%",
+                        fontSize: "40px" 
+                        }, 2500)
+                    .animate({  opacity: "0%" }, 4500);
+                setTimeout(function(){ $(".image_win").animate({ opacity: "100%" }, 5000, "swing") }, 3500);
 
-
-                $(".image_whale").css("background-image", "url('')");
-                $(".image_animals").css("background-image", "url('')");
+                $(".image_whale_true").css("background-image", "url('')");
+                $(".image_whale_false").css("background-image", "url('')");
             }
         }
 
+        // ---------- romove draggable from images ----------
         function removeDraggable() {
             $("#image_" + image.image_id).draggable("destroy").css("cursor", "default");
         }
 
+        // ---------- pause audio playback and start new audio playback ----------
         function play_audio(id) {
                 var audio = document.getElementById(id);
                 if (!audio.paused) {audio.pause()}
