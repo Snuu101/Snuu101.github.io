@@ -81,24 +81,23 @@
 
             // ---------- play audio files ----------
             // pause active audio bevore playing new audio
-            jQuery(document).ready(function( $ ) {
+            $(document).ready(function( $ ) {
                 $('audio').on("play", function (me) {
                     $('audio').each(function (i,e) {
                     if (e !== me.currentTarget) {
                         this.pause(); 
                         }
                     });
-                });
+                });                
             })
 
             // play audio
             function play_audio(id) {
                 var audio = document.getElementById(id);
-                if (!audio.paused) {audio.pause()}
+                if (!audio.paused) { $('audio').pause() }
                 audio.play();
             }
 
-            preload_sounds([["buckelwal", "/audio/buckelwal.ogg"], ["schwertwal", "/audio/schwertwal.ogg"]]);            
         </script>
 
         <div class="footer_navi">

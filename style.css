@@ -364,14 +364,6 @@ body {
     display: inline-block;
 }
 
-.true {
-    color: #229922;
-}
-
-.false {
-    color: #ff6666
-}
-
 .button_close {
     position: absolute;
     top: 20px;

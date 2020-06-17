@@ -49,42 +49,10 @@ function show_block(block) {
       if ($(this).data("reveal_priority")) { anker = $(this); return false; }
    });
 
-   // flash geo_map icon if location is present
-   var loc = anker.data("geo_loc");
-   $(".geo_map_show").removeClass("geo_map_show_hi");
-   if (loc > 0) {
-      geo_current_loc = loc - 1;
-      $(".geo_map_show").addClass("geo_map_show_hi");
-      $(".geo_map_show").effect("pulsate", { times: 3 }, 1000);
-   }
-
    // call reveal function if present
    var reveal_function = anker.data("reveal_function");
    var ret = reveal_function ? eval(reveal_function) : true;
    if (ret == false) { return }
-
-   // set margins of next arrow
-   var margin_top  = anker.data("reveal_margin") || 0;
-   var margin_left = anker.data("reveal_margin_left") || 0;
-
-   // position next arrow on the right
-  /* if (anker.data("reveal_position") == "right") {
-      $("#page_block_next").position({
-         my:        "left center",
-         at:        "right+" + margin_top + " center",
-         of:        anker,
-         collision: "none"
-      }).removeClass("icon-caret-down-two").addClass("icon-caret-right");
-
-   // position next arrow on the bottom
-   } else {
-      $("#page_block_next").position({
-         my:        "left top",
-         at:        "left+" + margin_left + " bottom+" + margin_top,
-         of:        anker,
-         collision: "none"
-      }).removeClass("icon-caret-right").addClass("icon-caret-down-two");
-   }*/
 
    // hide arrows if no more new elements available
    if (current_block == max_blocks) {
@@ -133,49 +101,5 @@ function show_all() {
       var image = images[nr - 1];
       $(image.image_id).attr("src", image.image_name);
       $("#sound_button_" + nr).css({top: $(image.image_id).offset().top, left: $(image.image_id).offset().left}).show();
-      //var offset = $(image.image_id).offset();
-      //alert(offset.top + ", " + offset.left);
-   }
-   
-
-   // --------- play audio ---------
-   function preload_sounds(urls) {
-      for (var s = 0; s < urls.length; s++) {
-         preload_sound(urls[s][1], urls[s][0]);
-      }
-   }
-
-   function preload_sound(url, tag) {
-      fetch(url).then(
-         response => response.arrayBuffer()
-      ).then(
-         buffer => audio_context.decodeAudioData(buffer).then(
-            data => audio[tag] = data
-         )
-      );
-   }
-
-   function play_soundbuffer(buffer) {
-      //audio_context.pause(0);
-      var audio_source    = audio_context.createBufferSource();
-      audio_source.buffer = audio[buffer];
-      audio_source.connect(audio_context.destination);
-      audio_source.start(0);
-      console.log(audio_source);
-   }
-
-   // --------- center element funktion ---------
-   jQuery.fn.center = function(parent) {
-      if (parent) {
-          parent = this.parent();
-      } else {
-          parent = window;
-      }
-      this.css({
-          "position": "absolute",
-          "top": ((($(parent).height() - this.outerHeight()) / 2) + "px"),
-          "left": ((($(parent).width() - this.outerWidth()) / 2) + "px")
-      });
-   return this;
    }
 
